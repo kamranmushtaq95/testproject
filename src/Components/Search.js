@@ -7,7 +7,6 @@ class MyComponent extends React.Component {
         super();
         this.state = {
             toggle: false,
-            data: [],
             title: ''
         }
 
@@ -16,7 +15,7 @@ class MyComponent extends React.Component {
         }, 30000
         );
 
-            Api.getName().then((response) => {
+            Api.getNames().then((response) => {
                 console.log(response.data);
                 this.setState({
                     data: response.data
@@ -68,7 +67,6 @@ class MyComponent extends React.Component {
     }
 
     handleChange (event) {
-        this.props.prop2();
         this.setState({title: event.target.value})
     }
 
