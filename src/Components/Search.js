@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from 'react-redux';
+
+import { setTitle } from '../Redux/Actions';
 
 class Search extends React.Component {
     constructor() {
@@ -9,17 +12,30 @@ class Search extends React.Component {
     }
 
     handleChange (event) {
+        console.log("new value", event.target.value);
+        this.props.onSetTitle(event.target.value);
         this.setState({title: event.target.value})
     }
 
     render() {
+        console.log("rendering Search");
+
         return (
             <div>
-                <input type="text" name="title" placeholder="Enter Something.." value={this.state.title}
+                <input className="" type="text" name="title" placeholder="Enter Something.." value={this.state.title}
                 onChange={this.handleChange.bind(this)}/>
             </div>
         );
     }
 }
 
-export default Search;
+const mapDispatchToProps = dispatch => {
+    return {
+        onSetTitle: title => {
+            dispatch(setTitle(title))
+        }
+    }
+}
+
+
+export default connect(null,mapDispatchToProps)(Search);
