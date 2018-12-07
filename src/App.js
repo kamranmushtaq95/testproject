@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import List from './Components/List';
-import SearchBar from './Components/Search';
+import Search from './Components/Search';
 import Api from "./Api/Api";
-
 import { addNames } from "./Redux/Actions";
 
 class App extends React.Component {
@@ -18,7 +17,7 @@ class App extends React.Component {
         Api.getNames().then((response) => {
             if(response.data) {
                 this.setState({dataState: 'loaded'});
-                this.props.onSetNames(response.data);
+                this.props.onSetNames(response.data);       // action for names
             }
             })
             .catch((error) => {
@@ -32,14 +31,14 @@ class App extends React.Component {
 
         let dataComponent = <div>Loading Data...</div>;
         if(this.state.dataState == 'loaded') {
-            dataComponent = <List namesData={[]} title=""/>
+            dataComponent = <List/>
         } else if (this.state.dataState == 'failed') {
             dataComponent = <div>Failed to load data, Check internet and refresh...</div>
         }
         return (
             <div className="container">
-                <SearchBar/>
-                {dataComponent}
+                <Search/>
+               {dataComponent}
             </div>
         );
     }
@@ -48,10 +47,20 @@ class App extends React.Component {
 const mapDispatchToProps = dispatch => {
     return {
         onSetNames: names => {
-            dispatch(addNames(names))
+            dispatch(addNames(names))  //addNames is a action of AnimalNames in action folder
         }
     }
 }
+
+
+export default connect(null, mapDispatchToProps)(App);
+
+
+
+
+
+
+
 
 
 // let x = {
@@ -64,7 +73,3 @@ const mapDispatchToProps = dispatch => {
 //     e: arg => arg+1,
 //     e: arg => {return arg+1}
 //     }
-
-
-
-export default connect(null, mapDispatchToProps)(App);

@@ -7,13 +7,13 @@ class Search extends React.Component {
     constructor() {
         super();
         this.state = {
-            title: ''
+            title: ''  // empty array so that error would not occour
         }
     }
 
     handleChange (event) {
         console.log("new value", event.target.value);
-        this.props.onSetTitle(event.target.value);
+        this.props.onSetTitle(event.target.value);  // action for title
         this.setState({title: event.target.value})
     }
 
@@ -22,7 +22,7 @@ class Search extends React.Component {
 
         return (
             <div>
-                <input className="" type="text" name="title" placeholder="Enter Something.." value={this.state.title}
+                <input className="form-control" type="text" name="title" placeholder="Enter Something.." value={this.state.title}
                 onChange={this.handleChange.bind(this)}/>
             </div>
         );
